@@ -3,7 +3,7 @@
 
 var React = require('react');
 var PageMetaStore = require('../stores/PageMetaStore');
-var head = require('react-frozenhead');
+var Box = require('../components/Box.jsx');
 var debug = require('debug')('App');
 
 var App = function (context) {
@@ -24,6 +24,7 @@ var App = function (context) {
       return (
         <div id="App">
           <this.props.activeRouteHandler />
+          <Box />
         </div>
       );
     },

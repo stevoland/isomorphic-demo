@@ -5,19 +5,23 @@ var React = require('react/addons'),
     appDebug = require('debug')('App'),
     App = require('./App'),
     Routes = require('./Routes.jsx'),
-    dehydratedState = window.App && window.App.Context; // Bootstrapped from server
+    ReactStyle = require('react-style')
 
-window.React = React; // For chrome dev tool support
-debug.enable('*');
+if (typeof window !== 'undefined') {
+    window.React = React; // For chrome dev tool support
+    debug.enable('*');
 
-appDebug('rehydrating app');
-var app = new App({
-    initialState: dehydratedState
-});
-window.context = app.context;
+    appDebug('rehydrating app');
+    var app = new App({
+        initialState: window.App && window.App.Context // Bootstrapped from server
+    });
+    window.context = app.context;
 
-appDebug('React Rendering');
-var routes = Routes(app.context.getComponentContext());
-React.renderComponent(routes, document.getElementById('Mount'), function () {
-    appDebug('React Rendered');
-});
+    appDebug('React Rendering');
+    var routes = Routes(app.context.getComponentContext());
+    window.__ReactStyle__ = undefined; // Hack
+    ReactStyle.inject();
+    React.renderComponent(routes, document.getElementById('Mount'), function () {
+        appDebug('React Rendered');
+    });
+}

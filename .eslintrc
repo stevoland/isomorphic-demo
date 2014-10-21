@@ -1,0 +1,10 @@
+{
+  "env": {
+    "node": true
+  },
+  "globals": {
+  },
+  "rules": {
+    "quotes": [1, "single", "avoid-escape"],
+    "no-mixed-requires": 0
+}
